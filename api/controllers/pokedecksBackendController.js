@@ -26,12 +26,6 @@ module.exports.signin = async (req, res) => {
           user = await newuser.save()
           res.status(201).json({ user });
         }
-        // if(!isUserAlready) {
-        //   console.log(isUserAlready)
-        //   const newuser = new User({ uid, displayName });
-        //   user = await newuser.save()
-        // }
-        // res.status(200).json({ user });
     } 
     catch (err) {
         res.status(400).json({ err });
@@ -39,15 +33,12 @@ module.exports.signin = async (req, res) => {
     }
 }
 module.exports.deleteUser = async (req, res) => {
-    const { uid, displayName } = req.body;
-
     try {
-        res.user = await User.findOne({ uid });
         res.user.remove()
-        res.json({ message: `${displayName} was deleted` })
+        res.json({ message: `Account was deleted` })
     } 
     catch (err) {
-        res.status(400).json({ err });
+        res.status(500).json({ err });
     }
 }
 
