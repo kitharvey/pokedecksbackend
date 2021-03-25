@@ -19,19 +19,12 @@ const userSchema = new mongoose.Schema({
 
 
 
-
-
-
-userSchema.statics.login = async function(uid, displayName) {
-  const user = await this.findOne({ uid });
-  if (user) {
-      return user;
-  }
-  else {
-    const newUser = await User.create({ uid, displayName });
-    return newUser;
-  }
-};
+// userSchema.statics.login = async function(uid) {
+//   const user = await this.findOne({ uid });
+//   if (user) {
+//       return user;
+//   }
+// };
 
 const User = mongoose.model('user', userSchema);
 

@@ -11,13 +11,31 @@ exports.getUsers = async(request, result) => {
 }
 
 module.exports.signin = async (req, res) => {
+    let user
     const { uid, displayName } = req.body;
     try {
-        const user = await User.login(uid, displayName);
-        res.status(200).json({ user });
+        const isUserAlready = await User.findOne({ uid: uid, displayName: displayName });
+        console.log(isUserAlready)
+        if (isUserAlready) {
+          user = isUserAlready;
+          res.status(200).json({ user });
+        }
+        else {
+          console.log(isUserAlready)
+          const newuser = new User({ uid, displayName });
+          user = await newuser.save()
+          res.status(201).json({ user });
+        }
+        // if(!isUserAlready) {
+        //   console.log(isUserAlready)
+        //   const newuser = new User({ uid, displayName });
+        //   user = await newuser.save()
+        // }
+        // res.status(200).json({ user });
     } 
     catch (err) {
         res.status(400).json({ err });
+        console.log(err)
     }
 }
 module.exports.deleteUser = async (req, res) => {
