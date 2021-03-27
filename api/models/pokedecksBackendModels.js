@@ -8,23 +8,17 @@ const userSchema = new mongoose.Schema({
     displayName: {
         type: String,
     },
-    favorites: {
-      type: [Number],
-    },
+    favorites: [{
+      id: Number,
+      name: String,
+      types: [String],
+    }],
     score: {
       type: Number,
       default: 0
     }
 });
 
-
-
-// userSchema.statics.login = async function(uid) {
-//   const user = await this.findOne({ uid });
-//   if (user) {
-//       return user;
-//   }
-// };
 
 const User = mongoose.model('user', userSchema);
 
